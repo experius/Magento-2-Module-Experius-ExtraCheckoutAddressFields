@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Quote\Model\BillingAddressManagement">
+        <plugin disabled="false" name="Experius_ExtraCheckoutAddressFields_Plugin_Magento_Quote_Model_BillingAddressManagement" sortOrder="10" type="Experius\ExtraCheckoutAddressFields\Plugin\Magento\Quote\Model\BillingAddressManagement"/>
+    </type>
+    <type name="Magento\Quote\Model\ShippingAddressManagement">
+        <plugin disabled="false" name="Experius_ExtraCheckoutAddressFields_Plugin_Magento_Quote_Model_ShippingAddressManagement" sortOrder="10" type="Experius\ExtraCheckoutAddressFields\Plugin\Magento\Quote\Model\ShippingAddressManagement"/>
+    </type>
+</config>
