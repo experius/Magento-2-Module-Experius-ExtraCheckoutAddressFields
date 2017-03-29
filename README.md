@@ -7,10 +7,20 @@ Magento 2 Add Extra Address Fields to Checkout
 
 Usage:
 
-- Add a fieldset.xml
-- Add a extensions_attributes.xml
-- Add a customer_address attribute setup
-- Add a quote_address field setup
-- Add a order_address field setup
+1. Add a fieldset.xml 
+```
+ <scope id="global">
+        <fieldset id="extra_checkout_billing_address_fields">
+            <field name="attribute_code">
+                <aspect name="to_order_address" />
+                <aspect name="to_customer_address" />
+            </field>
+        </fieldset>
+ </scope>
+```
+2. Add a extensions_attributes.xml
+2. Add a customer_address attribute setup
+2. Add a quote_address field setup
+2. Add a order_address field setup
 
-Example: See the module ExtraCheckoutAddressFieldsTest
+**Example**: See the module [ExtraCheckoutAddressFieldsTest](https://github.com/experius/Magento-2-Module-Experius-ExtraCheckoutAddressFieldsTest)
