@@ -6,4 +6,7 @@
     <type name="Magento\Quote\Model\ShippingAddressManagement">
         <plugin disabled="false" name="Experius_ExtraCheckoutAddressFields_Plugin_Magento_Quote_Model_ShippingAddressManagement" sortOrder="10" type="Experius\ExtraCheckoutAddressFields\Plugin\Magento\Quote\Model\ShippingAddressManagement"/>
     </type>
+    <type name="Magento\Checkout\Model\PaymentInformationManagement">
+        <plugin disabled="false" name="Experius_ExtraCheckoutAddressFields_Plugin_Magento_Checkout_Model_PaymentInformationManagement" sortOrder="10" type="Experius\ExtraCheckoutAddressFields\Plugin\Magento\Checkout\Model\PaymentInformationManagement"/>
+    </type>
 </config>

@@ -1,9 +1,9 @@
 <?php
 
 
-namespace Experius\ExtraCheckoutAddressFields\Plugin\Magento\Quote\Model;
+namespace Experius\ExtraCheckoutAddressFields\Plugin\Magento\Checkout\Model;
 
-class ShippingAddressManagement
+class PaymentInformationManagement
 {
 
     protected $helper;
@@ -18,19 +18,19 @@ class ShippingAddressManagement
         $this->helper = $helper;
     }
 
-    public function beforeAssign(
-        \Magento\Quote\Model\ShippingAddressManagement $subject,
+    public function beforeSavePaymentInformation(
+        \Magento\Checkout\Model\PaymentInformationManagement $subject,
         $cartId,
+        \Magento\Quote\Api\Data\PaymentInterface $paymentMethod,
         \Magento\Quote\Api\Data\AddressInterface $address
     ) {
 
         $extAttributes = $address->getExtensionAttributes();
-
         if (!empty($extAttributes)) {
             $this->helper->transportFieldsFromExtensionAttributesToObject(
                 $extAttributes,
                 $address,
-                'extra_checkout_shipping_address_fields'
+                'extra_checkout_billing_address_fields'
             );
         }
 

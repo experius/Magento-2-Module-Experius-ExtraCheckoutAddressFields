@@ -27,19 +27,11 @@ class BillingAddressManagement
 
         $extAttributes = $address->getExtensionAttributes();
         if (!empty($extAttributes)) {
-
-            foreach($this->helper->getExtraCheckoutAddressFields('extra_checkout_billing_address_fields') as $extraField) {
-
-                $set = 'set' . str_replace(' ', '', ucwords(str_replace('_', ' ', $extraField)));
-                $get = 'get' . str_replace(' ', '', ucwords(str_replace('_', ' ', $extraField)));
-
-                $value = $extAttributes->$get();
-                try {
-                    $address->$set($value);
-                } catch (\Exception $e) {
-                    $this->logger->critical($e->getMessage());
-                }
-            }
+            $this->helper->transportFieldsFromExtensionAttributesToObject(
+                $extAttributes,
+                $address,
+                'extra_checkout_billing_address_fields'
+            );
         }
 
     }

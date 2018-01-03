@@ -32,4 +32,26 @@ class Data extends AbstractHelper{
         return $extraCheckoutFields;
 
     }
+
+    public function transportFieldsFromExtensionAttributesToObject(
+        $fromObject,
+        $toObject,
+        $fieldset='extra_checkout_billing_address_fields'
+    )
+    {
+        foreach($this->getExtraCheckoutAddressFields($fieldset) as $extraField) {
+
+            $set = 'set' . str_replace(' ', '', ucwords(str_replace('_', ' ', $extraField)));
+            $get = 'get' . str_replace(' ', '', ucwords(str_replace('_', ' ', $extraField)));
+
+            $value = $fromObject->$get();
+            try {
+                $toObject->$set($value);
+            } catch (\Exception $e) {
+                $this->logger->critical($e->getMessage());
+            }
+        }
+
+        return $toObject;
+    }
 }

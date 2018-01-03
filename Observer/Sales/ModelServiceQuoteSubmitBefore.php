@@ -38,27 +38,16 @@ class ModelServiceQuoteSubmitBefore implements \Magento\Framework\Event\Observer
 
         $quote = $this->quoteRepository->get($order->getQuoteId());
 
-        foreach($this->helper->getExtraCheckoutAddressFields('extra_checkout_billing_address_fields') as $extraField) {
-            $set = 'set' . str_replace(' ', '', ucwords(str_replace('_', ' ', $extraField)));
-            $get = 'get' . str_replace(' ', '', ucwords(str_replace('_', ' ', $extraField)));
+        $this->helper->transportFieldsFromExtensionAttributesToObject(
+            $quote->getBillingAddress(),
+            $order->getBillingAddress(),
+            'extra_checkout_billing_address_fields'
+        );
 
-            try {
-                $order->getBillingAddress()->$set($quote->getBillingAddress()->$get())->save();
-            } catch (\Exception $e) {
-                $this->logger->critical($e->getMessage());
-            }
-        }
-
-        foreach($this->helper->getExtraCheckoutAddressFields('extra_checkout_shipping_address_fields') as $extraField) {
-            $set = 'set' . str_replace(' ', '', ucwords(str_replace('_', ' ', $extraField)));
-            $get = 'get' . str_replace(' ', '', ucwords(str_replace('_', ' ', $extraField)));
-
-            try {
-                $order->getShippingAddress()->$set($quote->getShippingAddress()->$get())->save();
-            } catch (\Exception $e) {
-                $this->logger->critical($e->getMessage());
-            }
-        }
-
+        $this->helper->transportFieldsFromExtensionAttributesToObject(
+            $quote->getShippingAddress(),
+            $order->getShippingAddress(),
+            'extra_checkout_shipping_address_fields'
+        );
     }
 }
