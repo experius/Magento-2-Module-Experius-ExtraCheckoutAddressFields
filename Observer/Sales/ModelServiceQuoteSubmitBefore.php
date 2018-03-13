@@ -44,10 +44,12 @@ class ModelServiceQuoteSubmitBefore implements \Magento\Framework\Event\Observer
             'extra_checkout_billing_address_fields'
         );
 
-        $this->helper->transportFieldsFromExtensionAttributesToObject(
-            $quote->getShippingAddress(),
-            $order->getShippingAddress(),
-            'extra_checkout_shipping_address_fields'
-        );
+        if ($order->getShippingAddress()) {
+            $this->helper->transportFieldsFromExtensionAttributesToObject(
+                $quote->getShippingAddress(),
+                $order->getShippingAddress(),
+                'extra_checkout_shipping_address_fields'
+            );
+        }
     }
 }
