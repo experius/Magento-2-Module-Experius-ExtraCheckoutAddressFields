@@ -25,8 +25,10 @@ class Data extends AbstractHelper{
 
         $extraCheckoutFields = [];
 
-        foreach($fields as $field=>$fieldInfo){
-            $extraCheckoutFields[] = $field;
+        if (is_array($fields)) {
+            foreach ($fields as $field => $fieldInfo) {
+                $extraCheckoutFields[] = $field;
+            }
         }
 
         return $extraCheckoutFields;
