@@ -1,11 +1,24 @@
 {
     "name": "experius/module-extracheckoutaddressfields",
     "description": "",
-    "license": "proprietary",
+    "type": "magento2-module",
+    "license": "GPL-3.0",
     "authors": [
         {
             "email": "info@experius.nl",
             "name": "Experius"
+        },
+        {
+            "email": "derrick@experius.nl",
+            "name": "Derrick Heesbeen"
+        },
+        {
+            "email": "lewis@experius.nl",
+            "name": "Lewis Voncken | Mr. Lewis"
+        },
+        {
+            "name": "Mage2Gen",
+            "email": "info@mage2gen.com"
         }
     ],
     "minimum-stability": "dev",

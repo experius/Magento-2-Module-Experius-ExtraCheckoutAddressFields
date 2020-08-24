@@ -1,29 +1,44 @@
 <?php
-
+/**
+ * Copyright © Experius B.V. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+declare(strict_types=1);
 
 namespace Experius\ExtraCheckoutAddressFields\Plugin\Magento\Quote\Model;
 
+use Experius\ExtraCheckoutAddressFields\Helper\Data;
+use Magento\Quote\Api\Data\AddressInterface;
+
 class ShippingAddressManagement
 {
-
+    /**
+     * @var Data
+     */
     protected $helper;
 
-    protected $logger;
-
+    /**
+     * ShippingAddressManagement constructor.
+     *
+     * @param Data $helper
+     */
     public function __construct(
-        \Psr\Log\LoggerInterface $logger,
-        \Experius\ExtraCheckoutAddressFields\Helper\Data $helper
+        Data $helper
     ) {
-        $this->logger = $logger;
         $this->helper = $helper;
     }
 
+    /**
+     * @param \Magento\Quote\Model\ShippingAddressManagement $subject
+     * @param $cartId
+     * @param AddressInterface $address
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function beforeAssign(
         \Magento\Quote\Model\ShippingAddressManagement $subject,
         $cartId,
-        \Magento\Quote\Api\Data\AddressInterface $address
+        AddressInterface $address
     ) {
-
         $extAttributes = $address->getExtensionAttributes();
 
         if (!empty($extAttributes)) {
@@ -33,6 +48,5 @@ class ShippingAddressManagement
                 'extra_checkout_shipping_address_fields'
             );
         }
-
     }
 }

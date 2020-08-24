@@ -1,39 +1,61 @@
 <?php
-
+/**
+ * Copyright © Experius B.V. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+declare(strict_types=1);
 
 namespace Experius\ExtraCheckoutAddressFields\Observer\Sales;
 
-class ModelServiceQuoteSubmitBefore implements \Magento\Framework\Event\ObserverInterface
-{
+use Experius\ExtraCheckoutAddressFields\Helper\Data;
+use Magento\Framework\Event\ObserverInterface;
+use Magento\Quote\Model\QuoteRepository;
+use Magento\Sales\Model\Order;
+use Psr\Log\LoggerInterface;
 
+class ModelServiceQuoteSubmitBefore implements ObserverInterface
+{
+    /**
+     * @var Data
+     */
     protected $helper;
 
+    /**
+     * @var LoggerInterface
+     */
     protected $logger;
 
+    /**
+     * @var QuoteRepository
+     */
     protected $quoteRepository;
 
+    /**
+     * ModelServiceQuoteSubmitBefore constructor.
+     *
+     * @param QuoteRepository $quoteRepository
+     * @param LoggerInterface $logger
+     * @param Data $helper
+     */
     public function __construct(
-        \Magento\Quote\Model\QuoteRepository $quoteRepository,
-        \Psr\Log\LoggerInterface $logger,
-        \Experius\ExtraCheckoutAddressFields\Helper\Data $helper
-    )
-    {
+        QuoteRepository $quoteRepository,
+        LoggerInterface $logger,
+        Data $helper
+    ) {
         $this->quoteRepository = $quoteRepository;
         $this->logger = $logger;
         $this->helper = $helper;
     }
 
     /**
-     * Execute observer
-     *
      * @param \Magento\Framework\Event\Observer $observer
-     * @return void
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function execute(
         \Magento\Framework\Event\Observer $observer
     ) {
 
-        /** @var \Magento\Sales\Model\Order $order */
+        /** @var Order $order */
         $order = $observer->getOrder();
 
         $quote = $this->quoteRepository->get($order->getQuoteId());

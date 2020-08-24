@@ -1,30 +1,47 @@
 <?php
-
+/**
+ * Copyright © Experius B.V. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+declare(strict_types=1);
 
 namespace Experius\ExtraCheckoutAddressFields\Plugin\Magento\Checkout\Model;
 
+use Experius\ExtraCheckoutAddressFields\Helper\Data;
+use Magento\Quote\Api\Data\AddressInterface;
+use Magento\Quote\Api\Data\PaymentInterface;
+
 class PaymentInformationManagement
 {
-
+    /**
+     * @var Data
+     */
     protected $helper;
 
-    protected $logger;
-
+    /**
+     * PaymentInformationManagement constructor.
+     *
+     * @param Data $helper
+     */
     public function __construct(
-        \Psr\Log\LoggerInterface $logger,
-        \Experius\ExtraCheckoutAddressFields\Helper\Data $helper
+        Data $helper
     ) {
-        $this->logger = $logger;
         $this->helper = $helper;
     }
 
+    /**
+     * @param \Magento\Checkout\Model\PaymentInformationManagement $subject
+     * @param $cartId
+     * @param PaymentInterface $paymentMethod
+     * @param AddressInterface $address
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function beforeSavePaymentInformation(
         \Magento\Checkout\Model\PaymentInformationManagement $subject,
         $cartId,
-        \Magento\Quote\Api\Data\PaymentInterface $paymentMethod,
-        \Magento\Quote\Api\Data\AddressInterface $address
+        PaymentInterface $paymentMethod,
+        AddressInterface $address
     ) {
-
         $extAttributes = $address->getExtensionAttributes();
         if (!empty($extAttributes)) {
             $this->helper->transportFieldsFromExtensionAttributesToObject(
@@ -33,6 +50,5 @@ class PaymentInformationManagement
                 'extra_checkout_billing_address_fields'
             );
         }
-
     }
 }
