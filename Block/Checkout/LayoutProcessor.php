@@ -7,21 +7,42 @@ declare(strict_types=1);
 
 namespace Experius\ExtraCheckoutAddressFields\Block\Checkout;
 
+use Experius\ExtraCheckoutAddressFields\Helper\Data;
 use Magento\Checkout\Block\Checkout\LayoutProcessorInterface;
 
 class LayoutProcessor implements LayoutProcessorInterface
 {
+    /**
+     * Form element mapping
+     *
+     * @var array
+     */
+    private $formElementMap = [
+        'text' => 'input',
+        'hidden' => 'input',
+        'boolean' => 'checkbox',
+    ];
+    /**
+     * @var Data
+     */
     protected $helper;
+    /**
+     * @var \Magento\Eav\Api\AttributeRepositoryInterface
+     */
+    private $attributeRepository;
 
     /**
      * LayoutProcessor constructor.
      *
-     * @param \Experius\ExtraCheckoutAddressFields\Helper\Data $helper
+     * @param Data $helper
+     * @param \Magento\Eav\Api\AttributeRepositoryInterface $attributeRepository
      */
     public function __construct(
-        \Experius\ExtraCheckoutAddressFields\Helper\Data $helper
+        Data $helper,
+        \Magento\Eav\Api\AttributeRepositoryInterface $attributeRepository
     ) {
         $this->helper = $helper;
+        $this->attributeRepository = $attributeRepository;
     }
 
     /**
@@ -136,13 +157,27 @@ class LayoutProcessor implements LayoutProcessorInterface
      */
     public function getField($attributeCode, $scope)
     {
-        $field = [
+        $attribute = $this->attributeRepository->get('customer_address', $attributeCode);
+
+        $inputType = $attribute->getFrontendInput();
+        if (isset($this->formElementMap[$inputType])) {
+            $inputType = $this->formElementMap[$inputType];
+        }
+
+        return [
+            'component' => 'Magento_Ui/js/form/element/abstract',
             'config' => [
                 'customScope' => $scope,
+                'template' => 'ui/form/field',
+                'elementTmpl' => 'ui/form/element/' . $inputType
             ],
             'dataScope' => $scope . '.' . $attributeCode,
+            'sortOrder' => $attribute->getSortOrder(),
+            'visible' => true,
+            'provider' => 'checkoutProvider',
+            'validation' => $attribute->getValidationRules(),
+            'options' => $attribute->getOptions(),
+            'label' => __($attribute->getStoreLabel())
         ];
-
-        return $field;
     }
 }
