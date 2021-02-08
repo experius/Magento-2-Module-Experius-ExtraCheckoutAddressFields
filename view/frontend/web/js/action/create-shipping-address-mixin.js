@@ -20,7 +20,6 @@ define([
                         value = value['value'];
                     }
 
-                    messageContainer['customAttributes'][key] = value;
                     messageContainer['extension_attributes'][key] = value;
                 });
             }

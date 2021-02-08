@@ -1,3 +1,10 @@
+## 1.2.2 (2021-02-08)
+
+[View Release](git@github.com:experius/Magento-2-Module-Experius-ExtraCheckoutAddressFields.git/commits/tag/1.2.2)
+
+*  [BUGFIX][NAU-646] Removed set customAttributes on shipping address create *(Lewis Voncken)*
+
+
 ## 1.2.1 (2021-02-08)
 
 [View Release](git@github.com:experius/Magento-2-Module-Experius-ExtraCheckoutAddressFields.git/commits/tag/1.2.1)
