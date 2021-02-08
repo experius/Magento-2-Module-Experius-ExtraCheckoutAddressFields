@@ -1,3 +1,10 @@
+## 1.2.1 (2021-02-08)
+
+[View Release](git@github.com:experius/Magento-2-Module-Experius-ExtraCheckoutAddressFields.git/commits/tag/1.2.1)
+
+*  [BUGFIX] Solved invalid address extension_attributes for new shipping address *(Lewis Voncken)*
+
+
 ## 1.2.0 (2020-08-24)
 
 [View Release](git@github.com:experius/Magento-2-Module-Experius-ExtraCheckoutAddressFields.git/commits/tag/1.2.0)

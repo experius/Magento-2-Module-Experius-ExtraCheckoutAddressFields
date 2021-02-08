@@ -8,9 +8,20 @@ define([
     return function (setShippingInformationAction) {
         return wrapper.wrap(setShippingInformationAction, function (originalAction, messageContainer) {
 
+            if (messageContainer['extension_attributes'] === undefined) {
+                messageContainer['extension_attributes'] = {};
+            }
             if (messageContainer.custom_attributes != undefined) {
                 $.each(messageContainer.custom_attributes , function( key, value ) {
-                    messageContainer['custom_attributes'][key] = {'attribute_code':key,'value':value};
+                    if($.isPlainObject(value)) {
+                        key = value['attribute_code'];
+                    }
+                    if($.isPlainObject(value)){
+                        value = value['value'];
+                    }
+
+                    messageContainer['customAttributes'][key] = value;
+                    messageContainer['extension_attributes'][key] = value;
                 });
             }
 
