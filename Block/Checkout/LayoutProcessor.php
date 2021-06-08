@@ -164,6 +164,12 @@ class LayoutProcessor implements LayoutProcessorInterface
             $inputType = $this->formElementMap[$inputType];
         }
 
+        $validation = $attribute->getValidationRules();
+
+        if($attribute->getIsRequired()) {
+            $validation['required-entry'] = true;
+        }
+
         return [
             'component' => 'Magento_Ui/js/form/element/abstract',
             'config' => [
@@ -175,7 +181,7 @@ class LayoutProcessor implements LayoutProcessorInterface
             'sortOrder' => $attribute->getSortOrder(),
             'visible' => true,
             'provider' => 'checkoutProvider',
-            'validation' => $attribute->getValidationRules(),
+            'validation' => $validation,
             'options' => $attribute->getOptions(),
             'label' => __($attribute->getStoreLabel())
         ];
