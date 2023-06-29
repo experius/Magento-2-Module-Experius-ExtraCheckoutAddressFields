@@ -25,7 +25,8 @@ class PaymentInformationManagement
      */
     public function __construct(
         Data $helper
-    ) {
+    )
+    {
         $this->helper = $helper;
     }
 
@@ -38,17 +39,20 @@ class PaymentInformationManagement
      */
     public function beforeSavePaymentInformation(
         \Magento\Checkout\Model\PaymentInformationManagement $subject,
-        $cartId,
-        PaymentInterface $paymentMethod,
-        AddressInterface $address
-    ) {
-        $extAttributes = $address->getExtensionAttributes();
-        if (!empty($extAttributes)) {
-            $this->helper->transportFieldsFromExtensionAttributesToObject(
-                $extAttributes,
-                $address,
-                'extra_checkout_billing_address_fields'
-            );
+                                                             $cartId,
+        PaymentInterface                                     $paymentMethod,
+        AddressInterface                                     $address = null
+    )
+    {
+        if ($address) {
+            $extAttributes = $address->getExtensionAttributes();
+            if (!empty($extAttributes)) {
+                $this->helper->transportFieldsFromExtensionAttributesToObject(
+                    $extAttributes,
+                    $address,
+                    'extra_checkout_billing_address_fields'
+                );
+            }
         }
     }
 }
