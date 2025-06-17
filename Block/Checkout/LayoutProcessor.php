@@ -84,11 +84,6 @@ class LayoutProcessor implements LayoutProcessorInterface
             ['shipping-step']['children']['shippingAddress']['children']
             ['shipping-address-fieldset']['children'];
 
-            if (isset($shippingFields['street'])) {
-                unset($shippingFields['street']['children'][1]['validation']);
-                unset($shippingFields['street']['children'][2]['validation']);
-            }
-
             $shippingFields = array_replace_recursive($shippingFields, $shippingPostcodeFields);
 
             $result['components']['checkout']['children']['steps']['children']
