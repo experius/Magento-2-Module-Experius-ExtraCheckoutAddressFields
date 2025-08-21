@@ -41,7 +41,7 @@ class PaymentInformationManagement
         \Magento\Checkout\Model\PaymentInformationManagement $subject,
                                                              $cartId,
         PaymentInterface                                     $paymentMethod,
-        AddressInterface                                     $address = null
+        ?AddressInterface                                     $address = null
     )
     {
         if ($address) {
